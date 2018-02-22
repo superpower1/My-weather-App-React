@@ -13,7 +13,7 @@ const PATHS = {
 module.exports = (env = {}) => {
 
   console.log('ENV:', env);
-  
+
   const common =  {
     entry: { // looks for entry filenames
       app: PATHS.app, // scan the content for import and require
@@ -29,7 +29,9 @@ module.exports = (env = {}) => {
         hash: env.prod ? true : false
       }),
       new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin('[name].css')
+      new ExtractTextPlugin('[name].css'),
+      new webpack.DefinePlugin({
+        'OWM_API': JSON.stringify(process.env.OPEN_WEATHER_MAP_KEY)})
     ],
 
     module: {
@@ -58,7 +60,7 @@ module.exports = (env = {}) => {
       ]
     }
   }
-    
+
   const dev = {
     devtool: 'cheap-module-source-map',
     devServer: {
