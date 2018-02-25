@@ -29,9 +29,7 @@ module.exports = (env = {}) => {
         hash: env.prod ? true : false
       }),
       new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin('[name].css'),
-      new webpack.DefinePlugin({
-        'OWM_API': JSON.stringify(process.env.OPEN_WEATHER_MAP_KEY)})
+      new ExtractTextPlugin('[name].css')
     ],
 
     module: {

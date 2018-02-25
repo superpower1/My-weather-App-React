@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'
 import Weather from './Weather'
+import NavMenu from './NavMenu'
 
 export default class App extends React.Component {
 
@@ -9,6 +10,7 @@ export default class App extends React.Component {
 
   render() {
     return <div>
+      <NavMenu/>
       <h1>hello world</h1>
       <Weather></Weather>
     </div>

@@ -1,4 +1,8 @@
-import React from "react";
+import React from "react"
+import fetchAPI from '../../lib/fetchAPI'
+import dataProcess from '../../lib/dataProcess'
+import Forecast from './Forecast'
+import 'babel-polyfill'
 
 class Weather extends React.Component {
   constructor(props) {
@@ -13,25 +17,15 @@ class Weather extends React.Component {
 
   search() {
     const location = this.state.searchInput;
-    const {showDetails, mode} = this.state;
+
     console.log(location);
-    console.log(showDetails);
-    console.log(mode);
-    const key = OWM_API;
-    let units = "";
-    if (mode === 'c') {
-      units = "&units=metric&"
-    } else if (mode === 'f') {
-      units = "&units=imperial&"
-    } else {
-      units = ""
+
+    const fetchData = async () => {
+      const res = await fetchAPI(location);
+      const processedData = dataProcess(res);
+      this.setState({weather: processedData});
     }
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&${units}appid=${key}`)
-      .then(res=>res.json())
-      .then(res=>{
-        console.log(res);
-        this.setState({weather: res})
-      })
+    fetchData();
   }
 
   inputChange(e) {
@@ -77,24 +71,25 @@ class Weather extends React.Component {
         </div>
         <button onClick={this.search.bind(this)}>Check</button>
         {
-          weather.name &&
+          weather.location &&
           <div>
-            <p>{weather.name}</p>
-            <p>{weather.main.temp}</p>
-            <img src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`} alt=""/>
+            <p>{weather.location}</p>
+            <p>{weather.temp}</p>
+            <img src={`http://openweathermap.org/img/w/${weather.imgId}.png`} alt=""/>
           </div>
         }
         {
-          this.state.showDetails && weather.name &&
+          this.state.showDetails && weather.location &&
           <div>
-            <p>Humidity: {weather.main.humidity}%</p>
-            <p>Pressure: {weather.main.pressure}hpa</p>
-            <p>Highest Temperature: {weather.main.temp_max}</p>
-            <p>Lowest Temperature: {weather.main.temp_min}</p>
-            <p>Wind Speed: {weather.wind.speed}m/s</p>
-            <p>Clouds: {weather.clouds.all}%</p>
+            <p>Humidity: {weather.humidity}%</p>
+            <p>Pressure: {weather.pressure}hpa</p>
+            <p>Highest Temperature: {weather.maxTemp}</p>
+            <p>Lowest Temperature: {weather.minTemp}</p>
+            <p>Wind Speed: {weather.windSpeed}m/s</p>
+            <p>Clouds: {weather.cloud}%</p>
           </div>
         }
+        <Forecast/>
       </div>
     );
   }
