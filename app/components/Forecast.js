@@ -12,7 +12,7 @@ class Forecast extends React.Component {
     const forecasts = this.props.data;
     return (
       <div className="forecast-info" id="forecast-info">
-        <h3 className="title">Forecast Infomation:</h3>
+        <h3 className="title">3 Days Forecast</h3>
         <Grid>
           <Row>
             {

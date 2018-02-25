@@ -40,6 +40,7 @@ class Weather extends React.Component {
 
     fetchWeather();
     fetchForecast();
+    this.props.showNav();
   }
 
   inputChange(e) {

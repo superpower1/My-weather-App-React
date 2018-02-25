@@ -5,14 +5,21 @@ import NavMenu from './NavMenu'
 export default class App extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      isNav: false
+    }
+  }
+
+  showNav() {
+    this.setState({isNav: true});
   }
 
   render() {
     return <div>
       <div className="background"></div>
-      <NavMenu/>
-      <Weather></Weather>
+      <NavMenu isNav={this.state.isNav} />
+      <Weather showNav={this.showNav.bind(this)}/>
     </div>
   }
 

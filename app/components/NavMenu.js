@@ -17,14 +17,17 @@ class NavMenu extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#current-city">
-                Weather
-              </NavItem>
-              <NavItem eventKey={2} href="#forecast-info">
-                Forecast
-              </NavItem>
-            </Nav>
+            {
+              this.props.isNav &&
+              <Nav>
+                <NavItem eventKey={1} href="#current-city">
+                  Weather
+                </NavItem>
+                <NavItem eventKey={2} href="#forecast-info">
+                  Forecast
+                </NavItem>
+              </Nav>
+            }
             <Nav pullRight>
               <NavItem eventKey={1} href="#">
                 About
