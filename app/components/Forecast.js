@@ -8,28 +8,24 @@ import {
 
 class Forecast extends React.Component {
   render() {
+    const forecasts = this.props.data;
     return (
       <div>
         <Grid>
           <Row>
-            <Col sm={4}>
-              <Thumbnail src={`http://openweathermap.org/img/w/09d.png`} >
-                <h3>Thumbnail label</h3>
-                <p>Description</p>
-              </Thumbnail>
-            </Col>
-            <Col sm={4}>
-              <Thumbnail src={`http://openweathermap.org/img/w/09d.png`} >
-                <h3>Thumbnail label</h3>
-                <p>Description</p>
-              </Thumbnail>
-            </Col>
-            <Col sm={4}>
-              <Thumbnail src={`http://openweathermap.org/img/w/09d.png`} >
-                <h3>Thumbnail label</h3>
-                <p>Description</p>
-              </Thumbnail>
-            </Col>
+            {
+              forecasts.map(forecast=>{
+                return(
+                  <Col sm={4}>
+                    <p>{forecast.time}</p>
+                    <Thumbnail src={`http://openweathermap.org/img/w/${forecast.icon}.png`} >
+                      <p>{forecast.description}</p>
+                      <h3>{forecast.temp}</h3>    
+                    </Thumbnail>
+                  </Col>
+                )
+              })
+            }
           </Row>
         </Grid>
       </div>

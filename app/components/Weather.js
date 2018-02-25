@@ -1,6 +1,7 @@
 import React from "react"
-import fetchAPI from '../../lib/fetchAPI'
-import dataProcess from '../../lib/dataProcess'
+import fetchWeatherRaw from '../../lib/fetchWeather'
+import fetchForecastRaw from '../../lib/fetchForecast'
+import dataProcessor from '../../lib/dataProcessor'
 import Forecast from './Forecast'
 import 'babel-polyfill'
 
@@ -11,7 +12,8 @@ class Weather extends React.Component {
       searchInput: "",
       showDetails: false,
       mode: "",
-      weather: {}
+      weather: {},
+      forecast: []
     }
   }
 
@@ -20,12 +22,21 @@ class Weather extends React.Component {
 
     console.log(location);
 
-    const fetchData = async () => {
-      const res = await fetchAPI(location);
-      const processedData = dataProcess(res);
+    const fetchWeather = async () => {
+      const res = await fetchWeatherRaw(location);
+      const processedData = dataProcessor.processWeatherData(res);
       this.setState({weather: processedData});
     }
-    fetchData();
+
+    const fetchForecast = async () => {
+      const res = await fetchForecastRaw(location);
+      const processedData = dataProcessor.processForecastData(res);
+      console.log(processedData);
+      this.setState({forecast: processedData});
+    }
+
+    fetchWeather();
+    fetchForecast();
   }
 
   inputChange(e) {
@@ -89,7 +100,9 @@ class Weather extends React.Component {
             <p>Clouds: {weather.cloud}%</p>
           </div>
         }
-        <Forecast/>
+        {
+          this.state.forecast && <Forecast data={this.state.forecast}/>
+        }
       </div>
     );
   }
