@@ -10,8 +10,8 @@ export default class App extends React.Component {
 
   render() {
     return <div>
+      <div className="background"></div>
       <NavMenu/>
-      <h1>hello world</h1>
       <Weather></Weather>
     </div>
   }

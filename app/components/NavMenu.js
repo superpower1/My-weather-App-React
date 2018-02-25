@@ -9,22 +9,25 @@ class NavMenu extends React.Component {
   render() {
     return (
       <div>
-        <Navbar collapseOnSelect>
+        <Navbar collapseOnSelect fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#brand">My Weather App</a>
+              <a href="#home">My Weather App</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} href="#">
-                Link
+              <NavItem eventKey={1} href="#current-city">
+                Weather
+              </NavItem>
+              <NavItem eventKey={2} href="#forecast-info">
+                Forecast
               </NavItem>
             </Nav>
             <Nav pullRight>
               <NavItem eventKey={1} href="#">
-                Link Right
+                About
               </NavItem>
             </Nav>
           </Navbar.Collapse>

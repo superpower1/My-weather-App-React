@@ -1,4 +1,5 @@
 import React from "react";
+import toFahrenheit from '../../lib/toFahrenheit'
 import {
   Grid,
   Row,
@@ -10,17 +11,22 @@ class Forecast extends React.Component {
   render() {
     const forecasts = this.props.data;
     return (
-      <div>
+      <div className="forecast-info" id="forecast-info">
+        <h3 className="title">Forecast Infomation:</h3>
         <Grid>
           <Row>
             {
-              forecasts.map(forecast=>{
+              forecasts.map((forecast, index)=>{
                 return(
-                  <Col sm={4}>
+                  <Col sm={4} key={index}>
                     <p>{forecast.time}</p>
                     <Thumbnail src={`http://openweathermap.org/img/w/${forecast.icon}.png`} >
                       <p>{forecast.description}</p>
-                      <h3>{forecast.temp}</h3>    
+                      <h3>{
+                        this.props.mode === 'f' ?
+                        toFahrenheit(forecast.temp) + ' °F' :
+                        forecast.temp + " °C"
+                      }</h3>
                     </Thumbnail>
                   </Col>
                 )
