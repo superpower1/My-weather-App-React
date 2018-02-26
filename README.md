@@ -8,3 +8,7 @@ User can search for weather information by city name. The api call is through a 
 
 ## Test
 1. `$ npm test`
+
+## Tech
+1. React
+2. Mocha

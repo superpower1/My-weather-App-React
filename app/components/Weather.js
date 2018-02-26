@@ -72,7 +72,7 @@ class Weather extends React.Component {
 
           <input className="text-input" type="text" placeholder="City name" onChange={this.inputChange.bind(this)}/>
           <button onClick={this.search.bind(this)} className="btn btn-primary">Check</button>
-      </div>
+        </div>
         {
           weather.location &&
           <div className="current-city" id="current-city">

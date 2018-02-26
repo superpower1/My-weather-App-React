@@ -1,8 +1,16 @@
-*{margin:0;padding:0}
+* {
+  margin:0;
+  padding:0;
+}
 
-li{list-style:none}
+li {
+  list-style:none;
+}
 
-img{vertical-align:top;border:none}
+img {
+  vertical-align:top;
+  border:none;
+}
 
 body, h1, h2, h3, h4, h5, h6, hr, p, dl, dt, dd,
 ul, ol, li, button, input, textarea,
@@ -23,12 +31,10 @@ body {
 }
 .background {
   position: fixed;
-  float: left;
   z-index: -1;
   width: 100vw;
   height: 100vh;
-  background-color: mistyrose;
-  background-image: url('./public/images/background.jpg');
+  background-image: url('./assets/images/background.jpg');
   background-size: cover;
 }
 
@@ -63,11 +69,11 @@ body {
   font-size: 15rem;
 }
 
-.search .text-input{
+.search .text-input {
   color: black;
   font-size: 2rem;
   width: 50vw;
-  padding:0 5px;
+  padding: 0 5px;
 }
 
 .current-city .show-temp {
@@ -83,7 +89,7 @@ body {
   margin: 0 auto;
 }
 
-.weather-detail .title, {
+.weather-detail .title {
   font-size: 5rem;
   margin-bottom: 1rem;
 }
@@ -101,7 +107,7 @@ body {
   margin-bottom: 5rem;
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
   .search .search-header span {
     text-align: center;
   }
