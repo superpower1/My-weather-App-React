@@ -1,5 +1,6 @@
 import 'react-hot-loader/patch'
 require('./style.css')
+require('./assets/css/owfont-regular.css')
 
 import React from 'react'
 import ReactDom from 'react-dom'
@@ -22,7 +23,3 @@ if (module.hot) {
     render(App)
   })
 }
-
-
-
-

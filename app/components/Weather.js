@@ -1,11 +1,11 @@
 import React from "react"
 import fetchWeatherRaw from '../../lib/fetchWeather'
-import fetchForecastRaw from '../../lib/fetchForecast'
-import dataProcessor from '../../lib/dataProcessor'
 import toFahrenheit from '../../lib/toFahrenheit'
 import Wear from './Wear'
 import Forecast from './Forecast'
+import WeatherDetails from './WeatherDetails'
 import 'babel-polyfill'
+
 
 class Weather extends React.Component {
   constructor(props) {
@@ -14,8 +14,7 @@ class Weather extends React.Component {
       searchInput: "",
       showDetails: false,
       mode: "c",
-      weather: {},
-      forecast: []
+      weather: {}
     }
   }
 
@@ -26,20 +25,11 @@ class Weather extends React.Component {
 
     const fetchWeather = async () => {
       const res = await fetchWeatherRaw(location);
-      const processedData = dataProcessor.processWeatherData(res);
-      this.setState({weather: processedData});
+      this.setState({weather: res});
       window.location.hash = '#current-city';
     }
 
-    const fetchForecast = async () => {
-      const res = await fetchForecastRaw(location);
-      const processedData = dataProcessor.processForecastData(res);
-      console.log(processedData);
-      this.setState({forecast: processedData});
-    }
-
     fetchWeather();
-    fetchForecast();
     this.props.showNav();
   }
 
@@ -78,6 +68,7 @@ class Weather extends React.Component {
           <div className="current-city" id="current-city">
             <div>
               <span className="city-name">{weather.location}</span>
+              <i className={`owf owf-${weather.imgId}`}></i>
               <img src={`http://openweathermap.org/img/w/${weather.imgId}.png`} alt=""/>
               <p className="show-temp">
                 {
@@ -115,19 +106,11 @@ class Weather extends React.Component {
         }
         {
           this.state.showDetails && weather.location &&
-          <div className="weather-detail" id="weather-detail">
-            <p className="title">Detailed Temperature:</p>
-            <p>Humidity: {weather.humidity}%</p>
-            <p>Pressure: {weather.pressure}hpa</p>
-            <p>Highest Temperature: {weather.maxTemp}</p>
-            <p>Lowest Temperature: {weather.minTemp}</p>
-            <p>Wind Speed: {weather.windSpeed}m/s</p>
-            <p>Clouds: {weather.cloud}%</p>
-          </div>
+          <WeatherDetails weather={weather}/>
         }
         {
-          weather.location && this.state.forecast &&
-          <Forecast data={this.state.forecast} mode={this.state.mode}/>
+          weather.location && weather.forecast &&
+          <Forecast data={weather.forecast} mode={this.state.mode}/>
         }
       </div>
     );
