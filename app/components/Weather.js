@@ -2,6 +2,7 @@ import React from "react"
 import fetchWeatherRaw from '../../lib/fetchWeather'
 import toFahrenheit from '../../lib/toFahrenheit'
 import Wear from './Wear'
+import Wash from './Wash'
 import Forecast from './Forecast'
 import WeatherDetails from './WeatherDetails'
 import 'babel-polyfill'
@@ -14,14 +15,21 @@ class Weather extends React.Component {
       searchInput: "",
       showDetails: false,
       mode: "c",
-      weather: {}
+      weather: {},
+      decision: true
     }
   }
 
   search() {
     const location = this.state.searchInput;
 
-    console.log(location);
+    // console.log(location);
+    fetch(`https://my-weather-app-server.herokuapp.com/api/wash/${location}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({decision: res}, ()=>{console.log(this.state.decision);});
+      })
+      .catch(error => console.error('Error:', error));
 
     const fetchWeather = async () => {
       const res = await fetchWeatherRaw(location);
@@ -68,8 +76,9 @@ class Weather extends React.Component {
           <div className="current-city" id="current-city">
             <div>
               <span className="city-name">{weather.location}</span>
-              <i className={`owf owf-${weather.imgId}`}></i>
-              <img src={`http://openweathermap.org/img/w/${weather.imgId}.png`} alt=""/>
+              <div className="weather-icon">
+                <i className={`owf owf-${weather.imgId}`}></i>
+              </div>
               <p className="show-temp">
                 {
                   this.state.mode === 'f' ?
@@ -102,6 +111,7 @@ class Weather extends React.Component {
               <label htmlFor="details">Show details</label>
             </div>
             <Wear temp={weather.temp}/>
+            <Wash decision={this.state.decision}/>
           </div>
         }
         {
